@@ -68,6 +68,37 @@ const movies = store.querySync(movieQuery).map(
 	}
 )
 
+const ParsingClient = require('sparql-http-client/ParsingClient')
+
+const client = new ParsingClient({
+	endpointUrl: 'https://dbpedia.org/sparql'
+})
+
+for(const movie of movies){
+	
+	const query = `
+		SELECT
+			?director
+			?runtime
+		WHERE {
+			?movie dbp:name "${movie.title}"@en .
+			?movie dbo:director ?director .
+			?movie dbp:runtime ?runtime .
+		}
+	`
+	///Problem: Several movies have the same name, will give multiple directors and runtime
+	client.query.select(query).then(rows => {
+		movie.director = ''
+		rows.forEach(row => {
+			movie.director = row.director.value
+			movie.runtime = row.runtime.value
+			console.log(movie)
+		})
+	}).catch(error => {
+		console.log(error)
+	})
+}
+
 const app = express()
 
 app.engine('hbs', expressHandlebars.engine({
