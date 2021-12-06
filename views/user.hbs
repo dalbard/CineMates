@@ -1,0 +1,11 @@
+{{#if user}}
+
+	<h1>{{user.name}}</h1>
+	<p><b>Email</b>: {{user.email}}</p>
+	
+{{else}}
+	
+	<h1>Not found</h1>
+	<p>A user with that id does not exist.</p>
+	
+{{/if}}

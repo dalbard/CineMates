@@ -19,6 +19,45 @@ const movies = [{
 	description: "Tom Cruise is also a cool guy who does his own stunts."
 }]
 
+const fs = require('fs')
+const $rdf = require('rdflib')
+
+const turtleString = fs.readFileSync('users.ttl').toString()
+
+const store = $rdf.graph()
+
+$rdf.parse(
+	turtleString,
+	store,
+	"http://cinemates/owl/users",
+	"text/turtle"
+)
+
+const stringQuery = `
+	SELECT
+		?id
+		?name
+		?email
+	WHERE {
+		?user a <http://cinemates/owl/users#User> .
+		?user <http://cinemates/owl/users#id> ?id .
+		?user <http://cinemates/owl/users#name> ?name .
+		?user <http://cinemates/owl/users#email> ?email .
+	}
+`
+
+const query = $rdf.SPARQLToQuery(stringQuery, false, store)
+
+const users = store.querySync(query).map(
+	userResult => {
+		return {
+			id: userResult['?id'].value,
+			name: userResult['?name'].value,
+			email: userResult['?email'].value
+		}
+	}
+)
+
 const app = express()
 
 app.engine('hbs', expressHandlebars.engine({
@@ -31,8 +70,19 @@ app.get('/', function(request, response){
 	response.render('start.hbs')
 })
 
-app.get('/about', function(request, response){
-	response.render('about.hbs')
+app.get('/users', function(request, response){
+	const model = {
+		users
+	}
+	response.render('users.hbs', model)
+})
+
+app.get('/users/:id', function(request, response){
+	const id = request.params.id // 123
+	const model = {
+		user: users.find(g => g.id == id)
+	}
+	response.render('user.hbs', model)
 })
 
 app.get('/contact', function(request, response){

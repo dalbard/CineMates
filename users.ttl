@@ -1,0 +1,21 @@
+@prefix : <http://cinemates/owl/users#> .
+
+:Gregory a :User;
+	:id "1";
+	:name "Gregory";
+	:email "gregory@hotmail.com" .
+
+:Stefan a :User;
+	:id "2";
+	:name "Stefan";
+	:email "stefan@hotmail.com" .
+
+:Elisabeth a :User;
+	:id "3";
+	:name "Elisabeth";
+	:email "elisabeth@hotmail.com" .
+
+:Joline a :User;
+	:id "4";
+	:name "Joline";
+	:email "joline@hotmail.com" .
