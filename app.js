@@ -1,39 +1,30 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
-const movies = [{
-	id: 1,
-	name: "No Time To Die",
-	description: "James Bond is a cool guy not looking back at explosions."
-}, {
-	id: 2,
-	name: "Harry Potter",
-	description: "Yer a wizard Harry."
-}, {
-	id: 3,
-	name: "Scarface",
-	description: "Gangster guy screaming in Italian."
-}, {
-	id: 4,
-	name: "Mission Impossible",
-	description: "Tom Cruise is also a cool guy who does his own stunts."
-}]
 
 const fs = require('fs')
 const $rdf = require('rdflib')
 
-const turtleString = fs.readFileSync('users.ttl').toString()
+const turtleUserString = fs.readFileSync('users.ttl').toString()
+const turtleMovieString = fs.readFileSync('movies.ttl').toString()
 
 const store = $rdf.graph()
 
 $rdf.parse(
-	turtleString,
+	turtleUserString,
 	store,
 	"http://cinemates/owl/users",
 	"text/turtle"
 )
 
-const stringQuery = `
+$rdf.parse(
+	turtleMovieString,
+	store,
+	"http://cinemates/owl/movies",
+	"text/turtle"
+)
+
+const userStringQuery = `
 	SELECT
 		?id
 		?name
@@ -45,15 +36,34 @@ const stringQuery = `
 		?user <http://cinemates/owl/users#email> ?email .
 	}
 `
+const movieStringQuery = `
+	SELECT
+		?id
+		?title
+	WHERE {
+		?movie a <http://cinemates/owl/movies#Movie> .
+		?movie <http://cinemates/owl/movies#id> ?id .
+		?movie <http://cinemates/owl/movies#title> ?title .
+	}
+`
+const userQuery = $rdf.SPARQLToQuery(userStringQuery, false, store)
+const movieQuery = $rdf.SPARQLToQuery(movieStringQuery, false, store)
 
-const query = $rdf.SPARQLToQuery(stringQuery, false, store)
-
-const users = store.querySync(query).map(
+const users = store.querySync(userQuery).map(
 	userResult => {
 		return {
 			id: userResult['?id'].value,
 			name: userResult['?name'].value,
 			email: userResult['?email'].value
+		}
+	}
+)
+
+const movies = store.querySync(movieQuery).map(
+	movieResult => {
+		return {
+			id: movieResult['?id'].value,
+			title: movieResult['?title'].value
 		}
 	}
 )

@@ -1,0 +1,21 @@
+@prefix : <http://cinemates/owl/movies#> .
+
+:inception a :Movie;
+	:id "inception";
+	:title "Inception" .
+
+:scarface a :Movie;
+	:id "scarface";
+	:title "Scarface" .
+
+:get_out a :Movie;
+	:id "get_out";
+	:title "Get Out" .
+
+:the_notebook a :Movie;
+	:id "the_notebook";
+	:title "The Notebook" .
+
+:spider-man a :Movie;
+	:id "spider-man";
+	:title "Spider-Man" .
