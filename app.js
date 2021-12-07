@@ -95,7 +95,7 @@ for(const movie of movies){
 		WHERE {
 			?movie rdfs:label "${movie.label}"@en .
 			?movie dbo:director ?director .
-			?director dbp:name ?directorName .
+			?director dbp:birthName ?directorName .
 			?movie dbp:runtime ?runtime .
 		}
 	`
