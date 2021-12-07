@@ -39,10 +39,12 @@ const userStringQuery = `
 const movieStringQuery = `
 	SELECT
 		?id
+		?label
 		?title
 	WHERE {
 		?movie a <http://cinemates/owl/movies#Movie> .
 		?movie <http://cinemates/owl/movies#id> ?id .
+		?movie <http://cinemates/owl/movies#label> ?label .
 		?movie <http://cinemates/owl/movies#title> ?title .
 	}
 `
@@ -63,6 +65,7 @@ const movies = store.querySync(movieQuery).map(
 	movieResult => {
 		return {
 			id: movieResult['?id'].value,
+			label: movieResult['?label'].value,
 			title: movieResult['?title'].value
 		}
 	}
@@ -81,7 +84,7 @@ for(const movie of movies){
 			?director
 			?runtime
 		WHERE {
-			?movie dbp:name "${movie.title}"@en .
+			?movie rdfs:label "${movie.label}"@en .
 			?movie dbo:director ?director .
 			?movie dbp:runtime ?runtime .
 		}
