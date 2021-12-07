@@ -86,25 +86,29 @@ const client = new ParsingClient({
 })
 
 for(const movie of movies){
-	
 	const query = `
 		SELECT
 			?director
 			?directorName
 			?runtime
+			?plot
 		WHERE {
 			?movie rdfs:label "${movie.label}"@en .
 			?movie dbo:director ?director .
-			?director dbp:birthName ?directorName .
+			?director rdfs:label ?directorName .
 			?movie dbp:runtime ?runtime .
+			?movie rdfs:comment ?plot .
+			FILTER(langMatches(lang(?plot), "EN") && langMatches(lang(?directorName), "EN")) .
+
 		}
 	`
-	///Problem: Several movies have the same name, will give multiple directors and runtime
+	///FILTER(langMatches(lang(?plot), "EN")) . FILTER(langMatches(lang(?directorName), "EN"))
 	client.query.select(query).then(rows => {
 		movie.director = ''
 		rows.forEach(row => {
 			movie.director = row.directorName.value
 			movie.runtime = toRuntime(parseInt(row.runtime.value))
+			movie.plot = row.plot.value
 			console.log(movie)
 		})
 	}).catch(error => {
