@@ -5,6 +5,14 @@ const expressHandlebars = require('express-handlebars')
 const fs = require('fs')
 const $rdf = require('rdflib')
 
+function toRuntime(seconds) {
+	var date = new Date(null)
+	date.setSeconds(seconds)
+	hour = date.toISOString().substr(12, 1)
+	minutes = date.toISOString().substr(14, 2)
+	return (hour.concat("h", " ", minutes, "m"))
+}
+
 const turtleUserString = fs.readFileSync('users.ttl').toString()
 const turtleMovieString = fs.readFileSync('movies.ttl').toString()
 
@@ -94,7 +102,7 @@ for(const movie of movies){
 		movie.director = ''
 		rows.forEach(row => {
 			movie.director = row.director.value
-			movie.runtime = row.runtime.value
+			movie.runtime = toRuntime(parseInt(row.runtime.value))
 			console.log(movie)
 		})
 	}).catch(error => {
