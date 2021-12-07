@@ -90,10 +90,12 @@ for(const movie of movies){
 	const query = `
 		SELECT
 			?director
+			?directorName
 			?runtime
 		WHERE {
 			?movie rdfs:label "${movie.label}"@en .
 			?movie dbo:director ?director .
+			?director dbp:name ?directorName .
 			?movie dbp:runtime ?runtime .
 		}
 	`
@@ -101,7 +103,7 @@ for(const movie of movies){
 	client.query.select(query).then(rows => {
 		movie.director = ''
 		rows.forEach(row => {
-			movie.director = row.director.value
+			movie.director = row.directorName.value
 			movie.runtime = toRuntime(parseInt(row.runtime.value))
 			console.log(movie)
 		})
