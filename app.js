@@ -5,6 +5,7 @@ const expressHandlebars = require('express-handlebars')
 const fs = require('fs')
 const $rdf = require('rdflib')
 
+//This function converts a runtime in seconds, to a date and time, and then finally to a runtime in the format H h:MM m
 function toRuntime(seconds) {
 	var date = new Date(null)
 	date.setSeconds(seconds)
@@ -86,34 +87,43 @@ const client = new ParsingClient({
 })
 
 for(const movie of movies){
+	var actorList = [] 
 	const query = `
 		SELECT
 			?director
 			?directorName
 			?runtime
 			?plot
+			?topCast
+			?actorName
 		WHERE {
 			?movie rdfs:label "${movie.label}"@en .
 			?movie dbo:director ?director .
 			?director rdfs:label ?directorName .
 			?movie dbp:runtime ?runtime .
 			?movie rdfs:comment ?plot .
-			FILTER(langMatches(lang(?plot), "EN") && langMatches(lang(?directorName), "EN")) .
+			?movie dbo:starring ?topCast .
+			?topCast rdfs:label ?actorName .
+			FILTER(langMatches(lang(?plot), "EN") && langMatches(lang(?directorName), "EN") && langMatches(lang(?actorName), "EN")) .
 
 		}
 	`
-	///FILTER(langMatches(lang(?plot), "EN")) . FILTER(langMatches(lang(?directorName), "EN"))
+
 	client.query.select(query).then(rows => {
-		movie.director = ''
 		rows.forEach(row => {
+			actorList.push(row.actorName.value)
 			movie.director = row.directorName.value
 			movie.runtime = toRuntime(parseInt(row.runtime.value))
 			movie.plot = row.plot.value
+			movie.topCast = actorList.toString()
 			console.log(movie)
 		})
+		//Clearing the array in order to get the right actors connected to the right movie and not mix any actors with movies they don't belong to.
+		actorList.length = 0
 	}).catch(error => {
 		console.log(error)
 	})
+	console.log("list", actorList)
 }
 
 const app = express()
