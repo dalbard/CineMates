@@ -1,21 +1,21 @@
-@prefix : <http://cinemates/owl/users#> .
+@prefix schema: <http://schema.org/> .
 
-:Gregory a :User;
-	:id "1";
-	:name "Gregory";
-	:email "gregory@hotmail.com" .
+:Gregory a schema:Person;
+	schema:identifier "1";
+	schema:name "Gregory";
+	schema:email "gregory@hotmail.com".
 
-:Stefan a :User;
-	:id "2";
-	:name "Stefan";
-	:email "stefan@hotmail.com" .
+:Elisabeth a schema:Person;
+	schema:identifier "2";
+	schema:name "Elisabeth";
+	schema:email "elisabeth@hotmail.com".
 
-:Elisabeth a :User;
-	:id "3";
-	:name "Elisabeth";
-	:email "elisabeth@hotmail.com" .
+:Stefan a schema:Person;
+	schema:identifier "3";
+	schema:name "Stefan";
+	schema:email "stefan@hotmail.com".
 
-:Joline a :User;
-	:id "4";
-	:name "Joline";
-	:email "joline@hotmail.com" .
+:Sara a schema:Person;
+	schema:identifier "4";
+	schema:name "Sara";
+	schema:email "sara@hotmail.com".

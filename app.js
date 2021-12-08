@@ -6,12 +6,16 @@ const fs = require('fs')
 const $rdf = require('rdflib')
 
 //This function converts a runtime in seconds, to a date and time, and then finally to a runtime in the format H h:MM m
-function toRuntime(seconds) {
+function toRuntime(seconds){
 	var date = new Date(null)
 	date.setSeconds(seconds)
 	hour = date.toISOString().substr(12, 1)
 	minutes = date.toISOString().substr(14, 2)
 	return (hour.concat("h", " ", minutes, "m"))
+}
+
+function toReleaseYear(date){
+	return date.substr(0, 4)
 }
 
 const turtleUserString = fs.readFileSync('users.ttl').toString()
@@ -22,7 +26,7 @@ const store = $rdf.graph()
 $rdf.parse(
 	turtleUserString,
 	store,
-	"http://cinemates/owl/users",
+	"http://schema.org/Person",
 	"text/turtle"
 )
 
@@ -39,10 +43,10 @@ const userStringQuery = `
 		?name
 		?email
 	WHERE {
-		?user a <http://cinemates/owl/users#User> .
-		?user <http://cinemates/owl/users#id> ?id .
-		?user <http://cinemates/owl/users#name> ?name .
-		?user <http://cinemates/owl/users#email> ?email .
+		?user a <http://schema.org/Person> .
+		?user <http://schema.org/identifier> ?id .
+		?user <http://schema.org/name> ?name .
+		?user <http://schema.org/email> ?email .
 	}
 `
 const movieStringQuery = `
@@ -65,7 +69,7 @@ const users = store.querySync(userQuery).map(
 		return {
 			id: userResult['?id'].value,
 			name: userResult['?name'].value,
-			email: userResult['?email'].value
+			email: userResult['?email'].value,
 		}
 	}
 )
@@ -82,13 +86,20 @@ const movies = store.querySync(movieQuery).map(
 
 const ParsingClient = require('sparql-http-client/ParsingClient')
 
-const client = new ParsingClient({
+const dbpClient = new ParsingClient({
 	endpointUrl: 'https://dbpedia.org/sparql'
 })
 
+const wikidataClient = new ParsingClient({
+	endpointUrl: 'https://query.wikidata.org/sparql'
+})
+
 for(const movie of movies){
+
 	var actorList = [] 
-	const query = `
+	var genreList = []
+
+	const dbpQuery = `
 		SELECT
 			?director
 			?directorName
@@ -109,21 +120,48 @@ for(const movie of movies){
 		}
 	`
 
-	client.query.select(query).then(rows => {
+	const wikidataQuery = `
+	PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+	PREFIX s: <http://www.wikidata.org/prop/statement/>
+
+	SELECT DISTINCT ?movie ?movieTitle ?movieGenre ?releaseDate WHERE {
+		?movie wdt:P31 wd:Q11424.
+		?movie rdfs:label ?movieTitle filter (lang(?movieTitle) = "en").
+		?movie wdt:P136 ?genre.
+		?genre rdfs:label ?movieGenre filter (lang(?movieGenre) = "en").
+		?movie p:P577 ?placeofpublication.
+        ?placeofpublication q:P291 wd:Q183. 
+        ?placeofpublication s:P577 ?releaseDate.
+		FILTER (STR(?movieTitle) = "${movie.title}")
+	  } LIMIT 3
+	`
+
+	dbpClient.query.select(dbpQuery).then(rows => {
 		rows.forEach(row => {
-			actorList.push(row.actorName.value)
 			movie.director = row.directorName.value
 			movie.runtime = toRuntime(parseInt(row.runtime.value))
 			movie.plot = row.plot.value
+			actorList.push(row.actorName.value)
 			movie.topCast = actorList.toString()
-			console.log(movie)
 		})
 		//Clearing the array in order to get the right actors connected to the right movie and not mix any actors with movies they don't belong to.
 		actorList.length = 0
 	}).catch(error => {
 		console.log(error)
 	})
-	console.log("list", actorList)
+
+	wikidataClient.query.select(wikidataQuery).then(rows => {
+		rows.forEach(row => {
+			genreList.push(row.movieGenre.value)
+			movie.genre = genreList.toString()
+			movie.releaseDate = toReleaseYear(row.releaseDate.value)
+			console.log(movie)
+		})
+		//Clearing the array in order to get the right genres connected to the right movie and not mix any genres with movies they don't belong to.
+		genreList.length = 0
+	}).catch(error => {
+		console.log(error)
+	})
 }
 
 const app = express()
