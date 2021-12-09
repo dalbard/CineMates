@@ -1,25 +1,44 @@
 @prefix schema: <http://schema.org/> .
-@prefix : <http://cinemates/owl/movies#> .
 
 :Gregory a schema:Person;
 	schema:identifier "1";
 	schema:name "Gregory";
-	schema:email "gregory@hotmail.com".
+	schema:email "gregory@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "Get Out";
+        schema:identifier "Get_Out";
+    ].
 
 :Elisabeth a schema:Person;
 	schema:identifier "2";
 	schema:name "Elisabeth";
-	schema:email "elisabeth@hotmail.com".
+	schema:email "elisabeth@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "Inception";
+        schema:identifier "Inception";
+    ].
 
 :Esteban a schema:Person;
 	schema:identifier "3";
-	schema:name "Stefan";
-	schema:email "stefan@hotmail.com".
+	schema:name "Esteban";
+	schema:email "esteban@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "The Notebook";
+        schema:identifier "The_Notebook_2004";
+    ].
 
 :Sara a schema:Person;
 	schema:identifier "4";
 	schema:name "Sara";
-	schema:email "sara@hotmail.com".
+	schema:email "sara@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "Spider-Man";
+        schema:identifier "Spider-Man_2002";
+    ].
 
 :Inception a schema:Movie;
     schema:identifier "Inception";

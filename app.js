@@ -34,11 +34,17 @@ const userStringQuery = `
 		?identifier
 		?name
 		?email
+		?seeks
+		?favoriteMovie
+		?favoriteMovieID
 	WHERE {
 		?user a <http://schema.org/Person> .
 		?user <http://schema.org/identifier> ?identifier .
 		?user <http://schema.org/name> ?name .
 		?user <http://schema.org/email> ?email .
+		?user <http://schema.org/seeks> ?seeks .
+		?seeks <http://schema.org/name> ?favoriteMovie .
+		?seeks <http://schema.org/identifier> ?favoriteMovieID .
 	}
 `
 const movieStringQuery = `
@@ -61,10 +67,13 @@ const users = store.querySync(userQuery).map(
 		return {
 			id: userResult['?identifier'].value,
 			name: userResult['?name'].value,
-			email: userResult['?email'].value
+			email: userResult['?email'].value,
+			favoriteMovie: userResult['?favoriteMovie'].value,
+			favoriteMovieID: userResult['?favoriteMovieID'].value
 		}
 	}
 )
+console.log(users)
 
 const movies = store.querySync(movieQuery).map(
 	movieResult => {
@@ -108,7 +117,6 @@ for(const movie of movies){
 			?movie dbo:starring ?topCast .
 			?topCast rdfs:label ?actorName .
 			FILTER(langMatches(lang(?plot), "EN") && langMatches(lang(?directorName), "EN") && langMatches(lang(?actorName), "EN")) .
-
 		}
 	`
 
@@ -147,7 +155,7 @@ for(const movie of movies){
 			genreList.push(row.movieGenre.value)
 			movie.genre = genreList.toString()
 			movie.releaseDate = toReleaseYear(row.movieReleaseDate.value)
-			console.log(movie)
+			//console.log(movie)
 		})
 		//Clearing the array in order to get the right genres and ratings connected to the right movie and not mix any genres and ratings with movies they don't belong to.
 		genreList.length = 0
