@@ -6,6 +6,7 @@
 	schema:name "Gregory";
 	schema:email "gregory@hotmail.com".
 
+
 :Elisabeth a schema:Person;
 	schema:identifier "2";
 	schema:name "Elisabeth";
@@ -13,8 +14,8 @@
 
 :Esteban a schema:Person;
 	schema:identifier "3";
-	schema:name "Stefan";
-	schema:email "stefan@hotmail.com".
+	schema:name "Esteban";
+	schema:email "esteban@hotmail.com".
 
 :Sara a schema:Person;
 	schema:identifier "4";
