@@ -18,47 +18,39 @@ function toReleaseYear(date){
 	return date.substr(0, 4)
 }
 
-const turtleUserString = fs.readFileSync('users.ttl').toString()
-const turtleMovieString = fs.readFileSync('movies.ttl').toString()
+const turtleString = fs.readFileSync('resources.ttl').toString()
 
 const store = $rdf.graph()
 
 $rdf.parse(
-	turtleUserString,
+	turtleString,
 	store,
 	"http://schema.org/Person",
 	"text/turtle"
 )
 
-$rdf.parse(
-	turtleMovieString,
-	store,
-	"http://cinemates/owl/movies",
-	"text/turtle"
-)
-
 const userStringQuery = `
 	SELECT
-		?id
+		?identifier
 		?name
 		?email
 	WHERE {
 		?user a <http://schema.org/Person> .
-		?user <http://schema.org/identifier> ?id .
+		?user <http://schema.org/identifier> ?identifier .
 		?user <http://schema.org/name> ?name .
 		?user <http://schema.org/email> ?email .
 	}
 `
 const movieStringQuery = `
 	SELECT
-		?id
-		?label
-		?title
+		?identifier
+		?name
+		?alternateName
 	WHERE {
-		?movie a <http://cinemates/owl/movies#Movie> .
-		?movie <http://cinemates/owl/movies#id> ?id .
-		?movie <http://cinemates/owl/movies#label> ?label .
-		?movie <http://cinemates/owl/movies#title> ?title .
+		?movie a <http://schema.org/Movie> .
+		?movie <http://schema.org/identifier> ?id .
+		?movie <http://schema.org/name> ?name .
+		?movie <http://schema.org/alternateName> ?alternateName .
 	}
 `
 const userQuery = $rdf.SPARQLToQuery(userStringQuery, false, store)
@@ -67,9 +59,9 @@ const movieQuery = $rdf.SPARQLToQuery(movieStringQuery, false, store)
 const users = store.querySync(userQuery).map(
 	userResult => {
 		return {
-			id: userResult['?id'].value,
+			id: userResult['?identifier'].value,
 			name: userResult['?name'].value,
-			email: userResult['?email'].value,
+			email: userResult['?email'].value
 		}
 	}
 )
@@ -78,8 +70,8 @@ const movies = store.querySync(movieQuery).map(
 	movieResult => {
 		return {
 			id: movieResult['?id'].value,
-			label: movieResult['?label'].value,
-			title: movieResult['?title'].value
+			title: movieResult['?name'].value,
+			label: movieResult['?alternateName'].value
 		}
 	}
 )
@@ -124,14 +116,14 @@ for(const movie of movies){
 	PREFIX q: <http://www.wikidata.org/prop/qualifier/>
 	PREFIX s: <http://www.wikidata.org/prop/statement/>
 
-	SELECT DISTINCT ?movie ?movieTitle ?movieGenre ?releaseDate WHERE {
+	SELECT DISTINCT ?movie ?movieTitle ?movieGenre ?movieReleaseDate WHERE {
 		?movie wdt:P31 wd:Q11424.
 		?movie rdfs:label ?movieTitle filter (lang(?movieTitle) = "en").
 		?movie wdt:P136 ?genre.
 		?genre rdfs:label ?movieGenre filter (lang(?movieGenre) = "en").
 		?movie p:P577 ?placeofpublication.
         ?placeofpublication q:P291 wd:Q183. 
-        ?placeofpublication s:P577 ?releaseDate.
+        ?placeofpublication s:P577 ?movieReleaseDate.
 		FILTER (STR(?movieTitle) = "${movie.title}")
 	  } LIMIT 3
 	`
@@ -154,10 +146,10 @@ for(const movie of movies){
 		rows.forEach(row => {
 			genreList.push(row.movieGenre.value)
 			movie.genre = genreList.toString()
-			movie.releaseDate = toReleaseYear(row.releaseDate.value)
+			movie.releaseDate = toReleaseYear(row.movieReleaseDate.value)
 			console.log(movie)
 		})
-		//Clearing the array in order to get the right genres connected to the right movie and not mix any genres with movies they don't belong to.
+		//Clearing the array in order to get the right genres and ratings connected to the right movie and not mix any genres and ratings with movies they don't belong to.
 		genreList.length = 0
 	}).catch(error => {
 		console.log(error)

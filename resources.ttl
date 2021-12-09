@@ -1,0 +1,47 @@
+@prefix schema: <http://schema.org/> .
+@prefix : <http://cinemates/owl/movies#> .
+
+:Gregory a schema:Person;
+	schema:identifier "1";
+	schema:name "Gregory";
+	schema:email "gregory@hotmail.com".
+
+:Elisabeth a schema:Person;
+	schema:identifier "2";
+	schema:name "Elisabeth";
+	schema:email "elisabeth@hotmail.com".
+
+:Esteban a schema:Person;
+	schema:identifier "3";
+	schema:name "Stefan";
+	schema:email "stefan@hotmail.com".
+
+:Sara a schema:Person;
+	schema:identifier "4";
+	schema:name "Sara";
+	schema:email "sara@hotmail.com".
+
+:Inception a schema:Movie;
+    schema:identifier "Inception";
+    schema:name "Inception";
+    schema:alternateName "Inception" .
+    
+:Scarface a schema:Movie;
+    schema:identifier "Scarface_1983";
+    schema:name "Scarface";
+    schema:alternateName "Scarface (1983 film)" .
+
+:Get_Out a schema:Movie;
+    schema:identifier "Get_Out";
+    schema:name "Get Out";
+    schema:alternateName "Get Out" .
+
+:The_Notebook a schema:Movie;
+    schema:identifier "The_Notebook_2004";
+    schema:name "The Notebook";
+    schema:alternateName "The Notebook" .
+
+:Spider-Man a schema:Movie;
+    schema:identifier "Spider-Man_2002";
+    schema:name "Spider-Man";
+    schema:alternateName "Spider-Man (2002 film)" .
