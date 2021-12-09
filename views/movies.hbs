@@ -1,8 +1,18 @@
-<h1>Movies</h1>
-<p>There are {{movies.length}} movies.</p>
+<div class="text-center my-4">
+	<h1>Movies</h1>
+	<p>There are {{movies.length}} movies.</p>
+</div>
 
-<ul>
-	{{#each movies}}
-		<li><a href="/movies/{{id}}">{{name}}</a></li>
-	{{/each}}
+<ul class="d-flex">
+	<div class="row justify-content-center">
+		{{#each movies}}
+			<div class="card mx-2 my-2 col-3" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">{{name}} <span class="h6">(Action · 1h30)</span></h5>
+					<p class="card-text">{{description}}</p>
+					<a class="btn btn-primary" href="/movies/{{id}}">Get to it</a>
+				</div>
+			</div>
+		{{/each}}
+	</div>
 </ul>

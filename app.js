@@ -17,9 +17,30 @@ const movies = [{
 	id: 4,
 	name: "Mission Impossible",
 	description: "Tom Cruise is also a cool guy who does his own stunts."
+},{
+	id: 5,
+	name: "No Time To Die",
+	description: "James Bond is a cool guy not looking back at explosions."
+}, {
+	id: 6,
+	name: "Harry Potter",
+	description: "Yer a wizard Harry."
+}, {
+	id: 7,
+	name: "Scarface",
+	description: "Gangster guy screaming in Italian."
+}, {
+	id: 8,
+	name: "Mission Impossible",
+	description: "Tom Cruise is also a cool guy who does his own stunts."
+}, {
+	id: 9,
+	name: "Mission Impossible",
+	description: "Tom Cruise is also a cool guy who does his own stunts."
 }]
 
 const app = express()
+
 
 app.engine('hbs', expressHandlebars.engine({
 	defaultLayout: 'main.hbs'
