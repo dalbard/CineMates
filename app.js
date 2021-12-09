@@ -54,7 +54,7 @@ const movieStringQuery = `
 		?alternateName
 	WHERE {
 		?movie a <http://schema.org/Movie> .
-		?movie <http://schema.org/identifier> ?id .
+		?movie <http://schema.org/identifier> ?identifier .
 		?movie <http://schema.org/name> ?name .
 		?movie <http://schema.org/alternateName> ?alternateName .
 	}
@@ -73,12 +73,11 @@ const users = store.querySync(userQuery).map(
 		}
 	}
 )
-console.log(users)
 
 const movies = store.querySync(movieQuery).map(
 	movieResult => {
 		return {
-			id: movieResult['?id'].value,
+			id: movieResult['?identifier'].value,
 			title: movieResult['?name'].value,
 			label: movieResult['?alternateName'].value
 		}
@@ -155,7 +154,7 @@ for(const movie of movies){
 			genreList.push(row.movieGenre.value)
 			movie.genre = genreList.toString()
 			movie.releaseDate = toReleaseYear(row.movieReleaseDate.value)
-			//console.log(movie)
+			console.log(movie)
 		})
 		//Clearing the array in order to get the right genres and ratings connected to the right movie and not mix any genres and ratings with movies they don't belong to.
 		genreList.length = 0

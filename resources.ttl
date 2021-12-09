@@ -46,7 +46,7 @@
     schema:alternateName "Inception" .
     
 :Scarface a schema:Movie;
-    schema:identifier "Scarface_1983";
+    schema:identifier "Scarface";
     schema:name "Scarface";
     schema:alternateName "Scarface (1983 film)" .
 
@@ -56,11 +56,51 @@
     schema:alternateName "Get Out" .
 
 :The_Notebook a schema:Movie;
-    schema:identifier "The_Notebook_2004";
+    schema:identifier "The_Notebook";
     schema:name "The Notebook";
     schema:alternateName "The Notebook" .
 
 :Spider-Man a schema:Movie;
-    schema:identifier "Spider-Man_2002";
+    schema:identifier "Spider-Man";
     schema:name "Spider-Man";
     schema:alternateName "Spider-Man (2002 film)" .
+
+:American_Sniper a schema:Movie;
+    schema:identifier "American_Sniper";
+    schema:name "American Sniper";
+    schema:alternateName "American Sniper".
+
+:Cars a schema:Movie;
+    schema:identifier "Cars";
+    schema:name "Cars";
+    schema:alternateName "Cars (film)".
+
+:Top_Gun a schema:Movie;
+    schema:identifier "Top_Gun";
+    schema:name "Top Gun";
+    schema:alternateName "Top Gun".
+
+:Baby_Driver a schema:Movie;
+    schema:identifier "Baby_Driver";
+    schema:name "Baby Driver";
+    schema:alternateName "Baby Driver".
+
+:The_Wolf_of_Wall_Street a schema:Movie;
+    schema:identifier "The_Wolf_of_Wall_Street";
+    schema:name "The Wolf of Wall Street";
+    schema:alternateName "The Wolf of Wall Street (2013 film)".
+
+:The_Dark_Knight a schema:Movie;
+    schema:identifier "The_Dark_Knight";
+    schema:name "The Dark Knight";
+    schema:alternateName "The Dark Knight (film)".
+
+:The_Great_Gatsby a schema:Movie;
+    schema:identifier "The_Great_Gatsby";
+    schema:name "The Great Gatsby";
+    schema:alternateName "The Great Gatsby (2013 film)".
+
+:The_Intouchables a schema:Movie;
+    schema:identifier "The_Intouchables";
+    schema:name "The Intouchables";
+    schema:alternateName "The Intouchables".
