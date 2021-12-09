@@ -1,0 +1,17 @@
+<div class="text-center my-4">
+	<h1>Users</h1>
+	<p>There are {{users.length}} users.</p>
+</div>
+
+<ul class="d-flex">
+	<div class="row mx-auto">
+		{{#each users}}
+			<div class="card mx-2 my-2" style="width: 18rem;">
+				<div class="card-body mx-auto">
+					<h5 class="card-title text-center">{{name}}</h5>
+					<a class="btn btn-primary" href="/users/{{id}}">See this user</a>
+				</div>
+			</div>
+		{{/each}}
+	</div>
+</ul>

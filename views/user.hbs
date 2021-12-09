@@ -1,0 +1,18 @@
+{{#if user}}
+
+<div class="card col-10 mx-auto mt-3">
+  {{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
+  <div class="card-body">
+    <h1 class="card-title text-center" >{{user.name}}</h1>
+	<p><b>Email</b>: {{user.email}}</p>	<p>{{movie.description}}</p>
+	<p><b>Favorite movie</b>: <a href="/movies/{{user.favoriteMovieID}}">{{user.favoriteMovie}}</a></p>
+  </div>
+</div>
+
+	
+{{else}}
+	
+	<h1>Not found</h1>
+	<p>A user with that id does not exist.</p>
+	
+{{/if}}

@@ -1,0 +1,21 @@
+@prefix schema: <http://schema.org/> .
+
+:Gregory a schema:Person;
+	schema:identifier "1";
+	schema:name "Gregory";
+	schema:email "gregory@hotmail.com".
+
+:Elisabeth a schema:Person;
+	schema:identifier "2";
+	schema:name "Elisabeth";
+	schema:email "elisabeth@hotmail.com".
+
+:Stefan a schema:Person;
+	schema:identifier "3";
+	schema:name "Stefan";
+	schema:email "stefan@hotmail.com".
+
+:Sara a schema:Person;
+	schema:identifier "4";
+	schema:name "Sara";
+	schema:email "sara@hotmail.com".
