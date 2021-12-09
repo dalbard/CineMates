@@ -1,45 +1,6 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
-<<<<<<< HEAD
-const movies = [{
-	id: 1,
-	name: "No Time To Die",
-	description: "James Bond is a cool guy not looking back at explosions."
-}, {
-	id: 2,
-	name: "Harry Potter",
-	description: "Yer a wizard Harry."
-}, {
-	id: 3,
-	name: "Scarface",
-	description: "Gangster guy screaming in Italian."
-}, {
-	id: 4,
-	name: "Mission Impossible",
-	description: "Tom Cruise is also a cool guy who does his own stunts."
-},{
-	id: 5,
-	name: "No Time To Die",
-	description: "James Bond is a cool guy not looking back at explosions."
-}, {
-	id: 6,
-	name: "Harry Potter",
-	description: "Yer a wizard Harry."
-}, {
-	id: 7,
-	name: "Scarface",
-	description: "Gangster guy screaming in Italian."
-}, {
-	id: 8,
-	name: "Mission Impossible",
-	description: "Tom Cruise is also a cool guy who does his own stunts."
-}, {
-	id: 9,
-	name: "Mission Impossible",
-	description: "Tom Cruise is also a cool guy who does his own stunts."
-}]
-=======
 
 const fs = require('fs')
 const $rdf = require('rdflib')
@@ -202,7 +163,6 @@ for(const movie of movies){
 		console.log(error)
 	})
 }
->>>>>>> 132240c349cf0fe521352b4f53404c81021fc6d5
 
 const app = express()
 
