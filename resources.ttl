@@ -1,26 +1,45 @@
 @prefix schema: <http://schema.org/> .
-@prefix : <http://cinemates/owl/movies#> .
 
 :Gregory a schema:Person;
 	schema:identifier "1";
 	schema:name "Gregory";
-	schema:email "gregory@hotmail.com".
+	schema:email "gregory@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "Get Out";
+        schema:identifier "Get_Out";
+    ].
 
 
 :Elisabeth a schema:Person;
 	schema:identifier "2";
 	schema:name "Elisabeth";
-	schema:email "elisabeth@hotmail.com".
+	schema:email "elisabeth@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "Inception";
+        schema:identifier "Inception";
+    ].
 
 :Esteban a schema:Person;
 	schema:identifier "3";
 	schema:name "Esteban";
-	schema:email "esteban@hotmail.com".
+	schema:email "esteban@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "The Notebook";
+        schema:identifier "The_Notebook_2004";
+    ].
 
 :Sara a schema:Person;
 	schema:identifier "4";
 	schema:name "Sara";
-	schema:email "sara@hotmail.com".
+	schema:email "sara@hotmail.com";
+    schema:seeks [
+        a schema:Movie;
+        schema:name "Spider-Man";
+        schema:identifier "Spider-Man_2002";
+    ].
 
 :Inception a schema:Movie;
     schema:identifier "Inception";
@@ -46,3 +65,43 @@
     schema:identifier "Spider-Man_2002";
     schema:name "Spider-Man";
     schema:alternateName "Spider-Man (2002 film)" .
+
+:American_Sniper a schema:Movie;
+    schema:identifier "American_Sniper";
+    schema:name "American Sniper";
+    schema:alternateName "American Sniper".
+
+:Cars a schema:Movie;
+    schema:identifier "Cars_(film)";
+    schema:name "Cars";
+    schema:alternateName "Cars (film)".
+
+:Top_Gun a schema:Movie;
+    schema:identifier "Top_Gun";
+    schema:name "Top Gun";
+    schema:alternateName "Top Gun".
+
+:Baby_Driver a schema:Movie;
+    schema:identifier "Baby_Driver";
+    schema:name "Baby Driver";
+    schema:alternateName "Baby Driver".
+
+:The_Wolf_of_Wall_Street a schema:Movie;
+    schema:identifier "The_Wolf_of_Wall_Street_(2013_film)";
+    schema:name "The Wolf of Wall Street";
+    schema:alternateName "The Wolf of Wall Street (2013 film)".
+
+:The_Dark_Knight a schema:Movie;
+    schema:identifier "The_Dark_Knight";
+    schema:name "The Dark Knight";
+    schema:alternateName "The Dark Knight (film)".
+
+:The_Great_Gatsby a schema:Movie;
+    schema:identifier "The_Great_Gatsby";
+    schema:name "The Great Gatsby";
+    schema:alternateName "The Great Gatsby (2013 film)".
+
+:The_Intouchables a schema:Movie;
+    schema:identifier "The_Intouchables";
+    schema:name "The Intouchables";
+    schema:alternateName "The Intouchables".
