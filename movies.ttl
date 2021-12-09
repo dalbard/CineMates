@@ -1,0 +1,26 @@
+@prefix : <http://cinemates/owl/movies#> .
+
+:Inception a :Movie;
+	:id "Inception";
+	:label "Inception";
+	:title "Inception" .
+
+:Scarface a :Movie;
+	:id "Scarface_1983";
+	:label "Scarface (1983 film)";
+	:title "Scarface" .
+
+:Get_Out a :Movie;
+	:id "Get_Out";
+	:label "Get Out";
+	:title "Get Out" .
+
+:The_Notebook a :Movie;
+	:id "The_Notebook_2004";
+	:label "The Notebook";
+	:title "The Notebook" .
+
+:Spider-Man a :Movie;
+	:id "Spider-Man_2002";
+	:label "Spider-Man (2002 film)";
+	:title "Spider-Man" .
