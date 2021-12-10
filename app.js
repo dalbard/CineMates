@@ -34,17 +34,17 @@ const userStringQuery = `
 		?identifier
 		?name
 		?email
-		?seeks
 		?favoriteMovie
+		?favoriteMovieTitle
 		?favoriteMovieID
 	WHERE {
 		?user a <http://schema.org/Person> .
 		?user <http://schema.org/identifier> ?identifier .
 		?user <http://schema.org/name> ?name .
 		?user <http://schema.org/email> ?email .
-		?user <http://schema.org/seeks> ?seeks .
-		?seeks <http://schema.org/name> ?favoriteMovie .
-		?seeks <http://schema.org/identifier> ?favoriteMovieID .
+		?user <http://cinemates/owl/resources#favoriteMovie> ?favoriteMovie .
+		?favoriteMovie <http://schema.org/name> ?favoriteMovieTitle .
+		?favoriteMovie <http://schema.org/identifier> ?favoriteMovieID .
 	}
 `
 const movieStringQuery = `
@@ -68,7 +68,7 @@ const users = store.querySync(userQuery).map(
 			id: userResult['?identifier'].value,
 			name: userResult['?name'].value,
 			email: userResult['?email'].value,
-			favoriteMovie: userResult['?favoriteMovie'].value,
+			favoriteMovie: userResult['?favoriteMovieTitle'].value,
 			favoriteMovieID: userResult['?favoriteMovieID'].value
 		}
 	}
