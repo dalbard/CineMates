@@ -88,6 +88,7 @@ const collectionQuery = $rdf.SPARQLToQuery(collectionStringQuery, false, store)
 
 const users = store.querySync(userQuery).map(
 	userResult => {
+		console.log(userResult['?movieListTitle'].value);
 		return {
 			id: userResult['?identifier'].value,
 			name: userResult['?name'].value,
@@ -106,7 +107,9 @@ const moviesInList = store.querySync(collectionQuery).map(
 			movieList: moviesInListResult['?movieListTitle'].value,
 			creatorID: moviesInListResult['?creatorID'].value,
 			movieInListTitle: moviesInListResult['?movieTitle'].value,
-			movieInListID: moviesInListResult['?movieID'].value
+			movieInListID: moviesInListResult['?movieID'].value,
+			creator: moviesInListResult['?name'].value,
+			movieList: moviesInListResult['?movieListTitle'].value
 		}
 	}
 )
@@ -185,7 +188,7 @@ for(const movie of movies){
 		//Clearing the array in order to get the right actors connected to the right movie and not mix any actors with movies they don't belong to.
 		actorList.length = 0
 	}).catch(error => {
-		console.log(error)
+		//console.log(error)
 	})
 
 	wikidataClient.query.select(wikidataQuery).then(rows => {
@@ -198,7 +201,7 @@ for(const movie of movies){
 		//Clearing the array in order to get the right genres connected to the right movie and not mix any genres with movies they don't belong to.
 		genreList.length = 0
 	}).catch(error => {
-		console.log(error)
+		//console.log(error)
 	})
 }
 
@@ -207,6 +210,43 @@ const app = express()
 app.engine('hbs', expressHandlebars.engine({
 	defaultLayout: 'main.hbs'
 }))
+
+var hbs = expressHandlebars.create({});
+
+let userRegistered = "";
+
+hbs.handlebars.registerHelper("registerUser", function(username) {
+	userRegistered = username;
+});
+
+let movieList = [];
+// register new function
+hbs.handlebars.registerHelper("checkMovie", function(movie, movieLink, creator) {
+	console.log(creator);
+	var html = "";
+	if(creator != userRegistered)
+		return ;
+	else {
+		html += movie;
+		return html;
+	}
+});
+
+let usernames = [];
+
+hbs.handlebars.registerHelper("checkUser", function(username, id, last) {
+	var html = "";
+	if (!last) {
+		if (usernames.includes(username)) {
+			return;
+		} else {
+			usernames.push(username);
+			html += '<div class="card mx-2 my-2" style="width: 18rem;\"\><div class="card-body mx-auto"\><h5 class="card-title text-center">' + username + '</h5\><a class="btn btn-primary" href="/users/' + id + '">Visit profile</a\></div\></div>'
+			return html;
+		}
+	} else
+		usernames = [];
+});
 
 app.use(express.static('public'))
 
