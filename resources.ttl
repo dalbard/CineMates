@@ -25,8 +25,8 @@
         ];
         schema:hasPart[
             a schema:Movie;
-            schema:name "The Dark Knight";
-            schema:identifier "The_Dark_Knight";
+            schema:name "American Sniper";
+            schema:identifier "American_Sniper";
         ];
     ].
     
@@ -41,7 +41,7 @@
     ];
     :movieList[
         a schema:Collection;
-        schema:name "Hate These Movies";
+        schema:name "DiCaprio Movies";
         schema:hasPart[
             a schema:Movie;
             schema:name "Inception";
@@ -49,13 +49,13 @@
         ];
         schema:hasPart[
             a schema:Movie;
-            schema:name "Scarface";
-            schema:identifier "Scarface";
+            schema:name "The Wolf of Wall Street";
+            schema:identifier "The_Wolf_of_Wall_Street";
         ];
         schema:hasPart[
             a schema:Movie;
-            schema:name "The Dark Knight";
-            schema:identifier "The_Dark_Knight";
+            schema:name "The Great Gatsby";
+            schema:identifier "The_Great_Gatsby";
         ];
     ].
 
@@ -70,21 +70,16 @@
     ];
     :movieList[
         a schema:Collection;
-        schema:name "Fuck These Movies";
+        schema:name "Recently Watched Movies";
         schema:hasPart[
             a schema:Movie;
-            schema:name "Inception";
-            schema:identifier "Inception";
+            schema:name "The Notebook";
+            schema:identifier "The_Notebook";
         ];
         schema:hasPart[
             a schema:Movie;
             schema:name "Scarface";
             schema:identifier "Scarface";
-        ];
-        schema:hasPart[
-            a schema:Movie;
-            schema:name "The Dark Knight";
-            schema:identifier "The_Dark_Knight";
         ];
     ].
 
@@ -99,16 +94,11 @@
     ];
     :movieList[
         a schema:Collection;
-        schema:name "I Am Fat";
+        schema:name "Superhero Movies";
         schema:hasPart[
             a schema:Movie;
-            schema:name "Inception";
-            schema:identifier "Inception";
-        ];
-        schema:hasPart[
-            a schema:Movie;
-            schema:name "Scarface";
-            schema:identifier "Scarface";
+            schema:name "Spider-Man";
+            schema:identifier "Spider-Man";
         ];
         schema:hasPart[
             a schema:Movie;
