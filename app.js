@@ -229,7 +229,7 @@ hbs.handlebars.registerHelper("checkMovie", function(movie, movieLink, creator) 
 	if(creator != userRegistered)
 		return ;
 	else {
-		html += '<div class="card mx-2 my-2" style="width: 18rem;"\><div class="card-body mx-auto"\><h5 class="card-title text-center">' + movie + '<a class="btn btn-primary" href="/movies/' + movieLink + '">Read more</a\></div\></div>';
+		html += '<div class="card mx-2 my-2" style="width: 18rem;"\><div class="card-body mx-auto"\><h5 class="card-title text-center">' + movie + '<div class="row my-3"><a class="btn btn-primary mx-auto" href="/movies/' + movieLink + '">Read more</a\></div></div\></div>';
 		return html;
 	}
 });
