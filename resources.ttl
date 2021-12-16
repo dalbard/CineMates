@@ -1,44 +1,120 @@
 @prefix schema: <http://schema.org/> .
+@prefix : <http://cinemates/owl/resources#> .
 
 :Gregory a schema:Person;
-	schema:identifier "1";
+	schema:identifier 1;
 	schema:name "Gregory";
 	schema:email "gregory@hotmail.com";
-    schema:seeks [
+    :favoriteMovie [
         a schema:Movie;
         schema:name "Get Out";
         schema:identifier "Get_Out";
+    ];
+    :movieList[
+        a schema:Collection;
+        schema:name "My Favorite Movies";
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Inception";
+            schema:identifier "Inception";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Scarface";
+            schema:identifier "Scarface";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "The Dark Knight";
+            schema:identifier "The_Dark_Knight";
+        ];
     ].
-
-
+    
 :Elisabeth a schema:Person;
 	schema:identifier "2";
 	schema:name "Elisabeth";
 	schema:email "elisabeth@hotmail.com";
-    schema:seeks [
+    :favoriteMovie [
         a schema:Movie;
         schema:name "Inception";
         schema:identifier "Inception";
+    ];
+    :movieList[
+        a schema:Collection;
+        schema:name "Hate These Movies";
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Inception";
+            schema:identifier "Inception";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Scarface";
+            schema:identifier "Scarface";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "The Dark Knight";
+            schema:identifier "The_Dark_Knight";
+        ];
     ].
 
 :Esteban a schema:Person;
 	schema:identifier "3";
 	schema:name "Esteban";
 	schema:email "esteban@hotmail.com";
-    schema:seeks [
+    :favoriteMovie [
         a schema:Movie;
         schema:name "The Notebook";
-        schema:identifier "The_Notebook_2004";
+        schema:identifier "The_Notebook";
+    ];
+    :movieList[
+        a schema:Collection;
+        schema:name "Fuck These Movies";
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Inception";
+            schema:identifier "Inception";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Scarface";
+            schema:identifier "Scarface";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "The Dark Knight";
+            schema:identifier "The_Dark_Knight";
+        ];
     ].
 
 :Sara a schema:Person;
 	schema:identifier "4";
 	schema:name "Sara";
 	schema:email "sara@hotmail.com";
-    schema:seeks [
+    :favoriteMovie [
         a schema:Movie;
         schema:name "Spider-Man";
-        schema:identifier "Spider-Man_2002";
+        schema:identifier "Spider-Man";
+    ];
+    :movieList[
+        a schema:Collection;
+        schema:name "I Am Fat";
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Inception";
+            schema:identifier "Inception";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "Scarface";
+            schema:identifier "Scarface";
+        ];
+        schema:hasPart[
+            a schema:Movie;
+            schema:name "The Dark Knight";
+            schema:identifier "The_Dark_Knight";
+        ];
     ].
 
 :Inception a schema:Movie;
@@ -100,8 +176,3 @@
     schema:identifier "The_Great_Gatsby";
     schema:name "The Great Gatsby";
     schema:alternateName "The Great Gatsby (2013 film)".
-
-:The_Intouchables a schema:Movie;
-    schema:identifier "The_Intouchables";
-    schema:name "The Intouchables";
-    schema:alternateName "The Intouchables".
