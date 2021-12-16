@@ -1,5 +1,5 @@
 {{#if user}}
-
+{{registerUser user.name}}
 <div class="card col-10 mx-auto mt-3">
   {{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
   <div class="card-body">
@@ -9,14 +9,11 @@
     <h1>{{user.movieList}}</h1>
     <ul class="d-flex">
       <div class="row justify-content-center">
-        {{#each moviesInList}}
-        <div class="card mx-2 my-2 col-3" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{{moviesInList.movieInListTitle}}
-            <a class="btn btn-primary" href="/movies/{{moviesInList.movieInListID}}">Read more</a>
-          </div>
-        </div>
-        {{/each}}
+		{{#if user}}
+			{{#each moviesInList}}
+					{{checkMovie movieInListTitle moviesInListID creator}}
+			{{/each}}
+		{{/if}}
       </div>
     </ul>
   </div>
