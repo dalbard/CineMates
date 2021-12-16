@@ -1,18 +1,21 @@
 {{#if user}}
 {{registerUser user.name}}
-<div class="card col-10 mx-auto mt-3">
-  {{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
+<div class="card col-10 mx-auto mt-3" style="border-radius: 20px;">
   <div class="card-body">
     <h1 class="card-title text-center">{{user.name}}</h1>
     <p><b>Email</b>: {{user.email}}</p>
     <p><b>Favorite movie</b>: <a href="/movies/{{user.favoriteMovieID}}">{{user.favoriteMovie}}</a></p>
-    <h1>{{user.movieList}}</h1>
+    <h1 class="text-center h3">{{user.movieList}}</h1>
     <ul class="d-flex">
-      <div class="row justify-content-center">
+      <div class="row mx-auto">
 		{{#if user}}
-			{{#each moviesInList}}
-					{{{checkMovie movieInListTitle movieInListID creatorName}}}
-			{{/each}}
+			<div class="card">
+				<div class="card-body row">
+					{{#each moviesInList}}
+							{{{checkMovie movieInListTitle movieInListID creatorName}}}
+					{{/each}}
+				</div>
+			</div>
 		{{/if}}
       </div>
     </ul>
@@ -22,7 +25,9 @@
 
 {{else}}
 
-<h1>Not found</h1>
-<p>A user with that id does not exist.</p>
+	<div class="container text-center my-5" style="color: white;">
+		<h1>Not found</h1>
+		<p>A user with that id does not exist.</p>
+	</div>
 
 {{/if}}

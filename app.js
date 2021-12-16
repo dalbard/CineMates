@@ -13,6 +13,7 @@ function toRuntime(seconds){
 	return (hour.concat("h", " ", minutes, "m"))
 }
 
+// This function parses the release year in the complete date
 function toReleaseYear(date){
 	return date.substr(0, 4)
 }
@@ -101,7 +102,6 @@ const users = store.querySync(userQuery).map(
 		}
 	}
 )
-//console.log(users)
 
 const moviesInList = store.querySync(collectionQuery).map(
 	moviesInListResult => {
@@ -115,8 +115,6 @@ const moviesInList = store.querySync(collectionQuery).map(
 		}
 	}
 )
-
-//console.log(moviesInList)
 
 const movies = store.querySync(movieQuery).map(
 	movieResult => {
@@ -190,7 +188,7 @@ for(const movie of movies){
 		//Clearing the array in order to get the right actors connected to the right movie and not mix any actors with movies they don't belong to.
 		actorList.length = 0
 	}).catch(error => {
-		//console.log(error)
+		console.log(error)
 	})
 
 	wikidataClient.query.select(wikidataQuery).then(rows => {
@@ -203,7 +201,7 @@ for(const movie of movies){
 		//Clearing the array in order to get the right genres connected to the right movie and not mix any genres with movies they don't belong to.
 		genreList.length = 0
 	}).catch(error => {
-		//console.log(error)
+		console.log(error)
 	})
 }
 
@@ -217,37 +215,22 @@ var hbs = expressHandlebars.create({});
 
 let userRegistered = "";
 
+// This function helps us registering the selected user profile
 hbs.handlebars.registerHelper("registerUser", function(username) {
 	userRegistered = username;
 });
 
 let movieList = [];
-// register new function
+// This function helps us to display the correct movie list for each user
 hbs.handlebars.registerHelper("checkMovie", function(movie, movieLink, creator) {
 	console.log(creator);
 	var html = "";
 	if(creator != userRegistered)
 		return ;
 	else {
-		html += '<div class="card mx-2 my-2" style="width: 18rem;"\><div class="card-body mx-auto"\><h5 class="card-title text-center">' + movie + '<div class="row my-3"><a class="btn btn-primary mx-auto" href="/movies/' + movieLink + '">Read more</a\></div></div\></div>';
+		html += '<div class="card mx-2 my-2" style="width: 18rem;"\><div class="card-body mx-auto"\><h5 class="card-title text-center">' + movie + '<div class="row my-3"><a class="btn btn-primary mx-auto" style="border: 1px solid black;background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);" href="/movies/' + movieLink + '">Read more</a\></div></div\></div>';
 		return html;
 	}
-});
-
-let usernames = [];
-
-hbs.handlebars.registerHelper("checkUser", function(username, id, last) {
-	var html = "";
-	if (!last) {
-		if (usernames.includes(username)) {
-			return;
-		} else {
-			usernames.push(username);
-			html += '<div class="card mx-2 my-2" style="width: 18rem;\"\><div class="card-body mx-auto"\><h5 class="card-title text-center">' + username + '</h5\><a class="btn btn-primary" href="/users/' + id + '">Visit profile</a\></div\></div>'
-			return html;
-		}
-	} else
-		usernames = [];
 });
 
 app.use(express.static('public'))

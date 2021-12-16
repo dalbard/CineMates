@@ -1,23 +1,22 @@
 {{#if movie}}
-
-<div class="card col-10 mx-auto mt-3">
-  {{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
-  <div class="card-body">
-    <h1 class="card-title text-center" >{{movie.title}}</h1>
-	<h1>{{movie.name}}</h1>
-	<p>{{movie.description}}</p>
-	<p><b>Release year</b>: {{movie.releaseDate}}</p>
-	<p><b>Runtime</b>: {{movie.runtime}}</p>
-	<p><b>Plot</b>: {{movie.plot}}</p>
-	<p><b>Director</b>: {{movie.director}}</p>
-	<p><b>Starring</b>: {{movie.topCast}}</p>
-	<p><b>Genres</b>: {{movie.genre}}</p>
-  </div>
+		<div class="card col-10 mx-auto mt-3" style="border-radius: 20px;">
+			<div class="card-body">
+				<h1 class="card-title text-center" >{{movie.title}}</h1>
+				<h1>{{movie.name}}</h1>
+				<p>{{movie.description}}</p>
+				<p><b>Release year</b>: {{movie.releaseDate}}</p>
+				<p><b>Runtime</b>: {{movie.runtime}}</p>
+				<p><b>Plot</b>: {{movie.plot}}</p>
+				<p><b>Director</b>: {{movie.director}}</p>
+				<p><b>Starring</b>: {{movie.topCast}}</p>
+				<p><b>Genres</b>: {{movie.genre}}</p>
+			</div>
 </div>
 	
 {{else}}
-	
-	<h1>Not found</h1>
-	<p>A movie with that id does not exist.</p>
+	<div class="container text-center my-5" style="color: white;">
+		<h1>Not found</h1>
+		<p>A movie with that id does not exist.</p>
+	</div>
 	
 {{/if}}

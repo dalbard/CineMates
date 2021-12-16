@@ -1,17 +1,15 @@
-<div class="text-center my-4">
+<div style="color: white;" class="text-center my-4">
 	<h1>Users</h1>
 	<p>There are {{users.length}} users.</p>
 </div>
 
-<ul class="d-flex">
-	<div class="row mx-auto">
-		{{#each users}}
-			<div class="card mx-2 my-2" style="width: 18rem;">
-				<div class="card-body mx-auto">
-					<h5 class="card-title text-center">{{name}}</h5>
-					<a class="btn btn-primary" href="/users/{{id}}">Visit profile</a>
-				</div>
+<div class="row mx-auto justify-content-center">
+	{{#each users}}
+		<div class="card mx-2 my-2" style="width: 18rem; border-radius: 20px">
+			<div class="card-body mx-auto">
+				<h5 class="card-title text-center">{{name}}</h5>
+				<a class="btn btn-primary" style="border: 1px solid black;background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);" href="/users/{{id}}">Visit profile</a>
 			</div>
-		{{/each}}
-	</div>
-</ul>
+		</div>
+	{{/each}}
+</div>
