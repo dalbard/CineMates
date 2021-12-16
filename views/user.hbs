@@ -3,16 +3,29 @@
 <div class="card col-10 mx-auto mt-3">
   {{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
   <div class="card-body">
-    <h1 class="card-title text-center" >{{user.name}}</h1>
-	<p><b>Email</b>: {{user.email}}</p>	<p>{{movie.description}}</p>
-	<p><b>Favorite movie</b>: <a href="/movies/{{user.favoriteMovieID}}">{{user.favoriteMovie}}</a></p>
+    <h1 class="card-title text-center">{{user.name}}</h1>
+    <p><b>Email</b>: {{user.email}}</p>
+    <p><b>Favorite movie</b>: <a href="/movies/{{user.favoriteMovieID}}">{{user.favoriteMovie}}</a></p>
+    <h1>{{user.movieList}}</h1>
+    <ul class="d-flex">
+      <div class="row justify-content-center">
+        {{#each moviesInList}}
+        <div class="card mx-2 my-2 col-3" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{moviesInList.movieInListTitle}}
+            <a class="btn btn-primary" href="/movies/{{moviesInList.movieInListID}}">Read more</a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </ul>
   </div>
 </div>
 
-	
+
 {{else}}
-	
-	<h1>Not found</h1>
-	<p>A user with that id does not exist.</p>
-	
+
+<h1>Not found</h1>
+<p>A user with that id does not exist.</p>
+
 {{/if}}

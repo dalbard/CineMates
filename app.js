@@ -37,6 +37,11 @@ const userStringQuery = `
 		?favoriteMovie
 		?favoriteMovieTitle
 		?favoriteMovieID
+		?movieList
+		?movieListTitle
+		?movie
+		?movieTitle
+		?movieID
 	WHERE {
 		?user a <http://schema.org/Person> .
 		?user <http://schema.org/identifier> ?identifier .
@@ -45,6 +50,11 @@ const userStringQuery = `
 		?user <http://cinemates/owl/resources#favoriteMovie> ?favoriteMovie .
 		?favoriteMovie <http://schema.org/name> ?favoriteMovieTitle .
 		?favoriteMovie <http://schema.org/identifier> ?favoriteMovieID .
+		?user <http://cinemates/owl/resources#movieList> ?movieList .
+		?movieList <http://schema.org/name> ?movieListTitle .
+		?movieList <http://schema.org/hasPart> ?movie .
+		?movie <http://schema.org/name> ?movieTitle .
+		?movie <http://schema.org/identifier> ?movieID .
 	}
 `
 const movieStringQuery = `
@@ -69,11 +79,23 @@ const users = store.querySync(userQuery).map(
 			name: userResult['?name'].value,
 			email: userResult['?email'].value,
 			favoriteMovie: userResult['?favoriteMovieTitle'].value,
-			favoriteMovieID: userResult['?favoriteMovieID'].value
+			favoriteMovieID: userResult['?favoriteMovieID'].value,
+			movieList: userResult['?movieListTitle'].value,
 		}
 	}
 )
 console.log(users)
+
+const moviesInList = store.querySync(userQuery).map(
+	moviesInListResult => {
+		return {
+			movieInListTitle: moviesInListResult['?movieTitle'].value,
+			movieInListID: moviesInListResult['?movieID'].value
+		}
+	}
+)
+
+console.log(moviesInList)
 
 const movies = store.querySync(movieQuery).map(
 	movieResult => {
@@ -186,7 +208,8 @@ app.get('/users', function(request, response){
 app.get('/users/:id', function(request, response){
 	const id = request.params.id // 123
 	const model = {
-		user: users.find(g => g.id == id)
+		user: users.find(g => g.id == id),
+		moviesInList
 	}
 	response.render('user.hbs', model)
 })
