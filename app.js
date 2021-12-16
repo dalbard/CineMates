@@ -66,6 +66,7 @@ const movieStringQuery = `
 const collectionStringQuery = `
 	SELECT
 		?creatorID
+		?creatorName
 		?movieList
 		?movieListTitle
 		?movie
@@ -74,6 +75,7 @@ const collectionStringQuery = `
 	WHERE {
 		?user a <http://schema.org/Person> .
 		?user <http://schema.org/identifier> ?creatorID .
+		?user <http://schema.org/name> ?creatorName .
 		?user <http://cinemates/owl/resources#movieList> ?movieList .
 		?movieList <http://schema.org/name> ?movieListTitle .
 		?movieList <http://schema.org/hasPart> ?movie .
@@ -108,7 +110,7 @@ const moviesInList = store.querySync(collectionQuery).map(
 			creatorID: moviesInListResult['?creatorID'].value,
 			movieInListTitle: moviesInListResult['?movieTitle'].value,
 			movieInListID: moviesInListResult['?movieID'].value,
-			creator: moviesInListResult['?name'].value,
+			creatorName: moviesInListResult['?creatorName'].value,
 			movieList: moviesInListResult['?movieListTitle'].value
 		}
 	}
