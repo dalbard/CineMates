@@ -73,7 +73,6 @@ const users = store.querySync(userQuery).map(
 		}
 	}
 )
-console.log(users)
 
 const movies = store.querySync(movieQuery).map(
 	movieResult => {
@@ -155,7 +154,7 @@ for(const movie of movies){
 			genreList.push(row.movieGenre.value)
 			movie.genre = genreList.toString()
 			movie.releaseDate = toReleaseYear(row.movieReleaseDate.value)
-			//console.log(movie)
+			console.log(movie)
 		})
 		//Clearing the array in order to get the right genres connected to the right movie and not mix any genres with movies they don't belong to.
 		genreList.length = 0

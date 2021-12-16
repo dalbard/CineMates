@@ -47,7 +47,7 @@
     schema:alternateName "Inception" .
     
 :Scarface a schema:Movie;
-    schema:identifier "Scarface_1983";
+    schema:identifier "Scarface";
     schema:name "Scarface";
     schema:alternateName "Scarface (1983 film)" .
 
@@ -57,12 +57,12 @@
     schema:alternateName "Get Out" .
 
 :The_Notebook a schema:Movie;
-    schema:identifier "The_Notebook_2004";
+    schema:identifier "The_Notebook";
     schema:name "The Notebook";
     schema:alternateName "The Notebook" .
 
 :Spider-Man a schema:Movie;
-    schema:identifier "Spider-Man_2002";
+    schema:identifier "Spider-Man";
     schema:name "Spider-Man";
     schema:alternateName "Spider-Man (2002 film)" .
 
@@ -72,7 +72,7 @@
     schema:alternateName "American Sniper".
 
 :Cars a schema:Movie;
-    schema:identifier "Cars_(film)";
+    schema:identifier "Cars";
     schema:name "Cars";
     schema:alternateName "Cars (film)".
 
@@ -87,7 +87,7 @@
     schema:alternateName "Baby Driver".
 
 :The_Wolf_of_Wall_Street a schema:Movie;
-    schema:identifier "The_Wolf_of_Wall_Street_(2013_film)";
+    schema:identifier "The_Wolf_of_Wall_Street";
     schema:name "The Wolf of Wall Street";
     schema:alternateName "The Wolf of Wall Street (2013 film)".
 
