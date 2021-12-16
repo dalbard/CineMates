@@ -1,7 +1,6 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
-
 const fs = require('fs')
 const $rdf = require('rdflib')
 
@@ -39,9 +38,6 @@ const userStringQuery = `
 		?favoriteMovieID
 		?movieList
 		?movieListTitle
-		?movie
-		?movieTitle
-		?movieID
 	WHERE {
 		?user a <http://schema.org/Person> .
 		?user <http://schema.org/identifier> ?identifier .
@@ -52,9 +48,6 @@ const userStringQuery = `
 		?favoriteMovie <http://schema.org/identifier> ?favoriteMovieID .
 		?user <http://cinemates/owl/resources#movieList> ?movieList .
 		?movieList <http://schema.org/name> ?movieListTitle .
-		?movieList <http://schema.org/hasPart> ?movie .
-		?movie <http://schema.org/name> ?movieTitle .
-		?movie <http://schema.org/identifier> ?movieID .
 	}
 `
 const movieStringQuery = `
@@ -69,8 +62,29 @@ const movieStringQuery = `
 		?movie <http://schema.org/alternateName> ?alternateName .
 	}
 `
+
+const collectionStringQuery = `
+	SELECT
+		?creatorID
+		?movieList
+		?movieListTitle
+		?movie
+		?movieTitle
+		?movieID
+	WHERE {
+		?user a <http://schema.org/Person> .
+		?user <http://schema.org/identifier> ?creatorID .
+		?user <http://cinemates/owl/resources#movieList> ?movieList .
+		?movieList <http://schema.org/name> ?movieListTitle .
+		?movieList <http://schema.org/hasPart> ?movie .
+		?movie <http://schema.org/name> ?movieTitle .
+		?movie <http://schema.org/identifier> ?movieID .
+	}
+`
+
 const userQuery = $rdf.SPARQLToQuery(userStringQuery, false, store)
 const movieQuery = $rdf.SPARQLToQuery(movieStringQuery, false, store)
+const collectionQuery = $rdf.SPARQLToQuery(collectionStringQuery, false, store)
 
 const users = store.querySync(userQuery).map(
 	userResult => {
@@ -80,22 +94,24 @@ const users = store.querySync(userQuery).map(
 			email: userResult['?email'].value,
 			favoriteMovie: userResult['?favoriteMovieTitle'].value,
 			favoriteMovieID: userResult['?favoriteMovieID'].value,
-			movieList: userResult['?movieListTitle'].value,
+			movieList: userResult['?movieListTitle'].value
 		}
 	}
 )
-console.log(users)
+//console.log(users)
 
-const moviesInList = store.querySync(userQuery).map(
+const moviesInList = store.querySync(collectionQuery).map(
 	moviesInListResult => {
 		return {
+			movieList: moviesInListResult['?movieListTitle'].value,
+			creatorID: moviesInListResult['?creatorID'].value,
 			movieInListTitle: moviesInListResult['?movieTitle'].value,
 			movieInListID: moviesInListResult['?movieID'].value
 		}
 	}
 )
 
-console.log(moviesInList)
+//console.log(moviesInList)
 
 const movies = store.querySync(movieQuery).map(
 	movieResult => {
@@ -212,6 +228,7 @@ app.get('/users/:id', function(request, response){
 		moviesInList
 	}
 	response.render('user.hbs', model)
+	console.log(model)
 })
 
 app.get('/contact', function(request, response){

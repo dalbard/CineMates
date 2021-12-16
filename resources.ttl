@@ -31,7 +31,7 @@
     ].
     
 :Elisabeth a schema:Person;
-	schema:identifier "2";
+	schema:identifier 2;
 	schema:name "Elisabeth";
 	schema:email "elisabeth@hotmail.com";
     :favoriteMovie [
@@ -60,7 +60,7 @@
     ].
 
 :Esteban a schema:Person;
-	schema:identifier "3";
+	schema:identifier 3;
 	schema:name "Esteban";
 	schema:email "esteban@hotmail.com";
     :favoriteMovie [
@@ -89,7 +89,7 @@
     ].
 
 :Sara a schema:Person;
-	schema:identifier "4";
+	schema:identifier 4;
 	schema:name "Sara";
 	schema:email "sara@hotmail.com";
     :favoriteMovie [
